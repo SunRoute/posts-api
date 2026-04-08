@@ -17,4 +17,14 @@ class AuthController extends Controller
         ]);
         return response()->json($user);
     }
+    
+    public function login(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        $token = $user->createToken('api-token')->plainTextToken;
+        return response()->json(['token' => $token]);
+    }
 }

@@ -6,4 +6,4 @@ use App\Http\Controllers\AuthController;
 
 // Auth
 Route::post('/register', [AuthController::class, 'register']);
-
+Route::post('/login', [AuthController::class, 'login']);
