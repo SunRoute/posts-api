@@ -11,3 +11,8 @@ Route::post('/login', [AuthController::class, 'login']);
 // Públicos
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{id}', [PostController::class, 'show']);
+
+// Privados
+Route::middleware('auth:sanctum')->group(function () {
+Route::post('/posts', [PostController::class, 'store']);
+});

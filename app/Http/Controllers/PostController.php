@@ -16,4 +16,14 @@ class PostController extends Controller
     {
         return Post::findOrFail($id);
     }
+
+    public function store(Request $request)
+    {
+        $post = Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'user_id' => auth()->id()
+        ]);
+        return response()->json($post);
+    }
 }
