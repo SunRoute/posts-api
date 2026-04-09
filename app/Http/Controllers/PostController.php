@@ -26,4 +26,18 @@ class PostController extends Controller
         ]);
         return response()->json($post);
     }
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->user_id !== auth()->id()) {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
+
+        $post->update([
+            'title' => $request->title ?? $post->title,
+            'content' => $request->content ?? $post->content,
+        ]);
+
+        return response()->json($post);
+    }
 }
